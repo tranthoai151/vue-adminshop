@@ -23,7 +23,22 @@ const JhiHealthComponent = () => import('../admin/health/health.vue');
 const JhiLogsComponent = () => import('../admin/logs/logs.vue');
 const JhiAuditsComponent = () => import('../admin/audits/audits.vue');
 const JhiMetricsComponent = () => import('../admin/metrics/metrics.vue');
+const Login = () => import('../account/login/login.vue');
+const Welcome = () => import('../account/welcome/welcome.vue');
+
 /* tslint:disable */
+// prettier-ignore
+const Category = () => import('../entities/category/category.vue');
+// prettier-ignore
+const CategoryUpdate = () => import('../entities/category/category-update.vue');
+// prettier-ignore
+const CategoryDetails = () => import('../entities/category/category-details.vue');
+// prettier-ignore
+const Product = () => import('../entities/product/product.vue');
+// prettier-ignore
+const ProductUpdate = () => import('../entities/product/product-update.vue');
+// prettier-ignore
+const ProductDetails = () => import('../entities/product/product-details.vue');
 // jhipster-needle-add-entity-to-router-import - JHipster will import entities to the router here
 
 Vue.use(Router);
@@ -34,8 +49,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'welcome',
+      component: Welcome
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/welcome',
+      name: 'Welcome',
+      component: Welcome
     },
     {
       path: '/forbidden',
@@ -140,6 +165,56 @@ export default new Router({
       name: 'JhiConfigurationComponent',
       component: JhiConfigurationComponent,
       meta: { authorities: ['ROLE_ADMIN'] }
+    }
+    ,
+    {
+      path: '/category',
+      name: 'Category',
+      component: Category,
+      meta: { authorities: ['ROLE_ADMIN'] }
+    },
+    {
+      path: '/category/new',
+      name: 'CategoryCreate',
+      component: CategoryUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/category/:categoryId/edit',
+      name: 'CategoryEdit',
+      component: CategoryUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/category/:categoryId/view',
+      name: 'CategoryView',
+      component: CategoryDetails,
+      meta: { authorities: ['ROLE_USER'] }
+    }
+    ,
+    {
+      path: '/product',
+      name: 'Product',
+      component: Product,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/product/new',
+      name: 'ProductCreate',
+      component: ProductUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/product/:productId/edit',
+      name: 'ProductEdit',
+      component: ProductUpdate,
+      meta: { authorities: ['ROLE_USER'] }
+    },
+    {
+      path: '/product/:productId/view',
+      name: 'ProductView',
+      component: ProductDetails,
+      meta: { authorities: ['ROLE_USER'] }
     }
     // jhipster-needle-add-entity-to-router - JHipster will add entities to the router here
   ]

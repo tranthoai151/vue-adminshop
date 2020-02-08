@@ -1,14 +1,20 @@
 <template>
-    <div id="footer" class="footer">
-        <p>This is your footer</p>
-    </div>
+    <footer class="py-4 text-white-50 bg-primary" type="dark" >
+        <div class="container text-center">
+        <small>mrthor</small>
+        </div>
+  </footer>
 </template>
 
 <script lang="ts" src="./jhi-footer.component.ts">
 </script>
 
 <style scoped>
-    .footer {
+    footer {
         text-align: left;
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
     }
 </style>

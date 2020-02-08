@@ -1,12 +1,12 @@
 <template>
-    <b-navbar toggleable="md" type="dark" class="bg-dark">
+    <b-navbar toggleable="md" type="dark" class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="jh-logo-container float-left">
             <b-navbar-toggle right class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);"  data-toggle="collapse" target="header-tabs" aria-expanded="false" aria-label="Toggle navigation">
                 <font-awesome-icon icon="bars" />
             </b-navbar-toggle>
             <b-navbar-brand class="logo float-left" b-link to="/">
                 <span class="logo-img"></span>
-                <span class="navbar-title">shopdmin</span> <span class="navbar-version">{{version}}</span>
+                <span class="navbar-title">TBB Shop</span>
             </b-navbar-brand>
         </div>
         <b-collapse is-nav id="header-tabs">
@@ -17,6 +17,7 @@
                         <span>Home</span>
                     </span>
                 </b-nav-item>
+                <!--
                 <b-nav-item-dropdown
                     id="entity-menu"
                     v-if="authenticated"
@@ -25,8 +26,16 @@
                         <font-awesome-icon icon="th-list" />
                         <span>Entities</span>
                     </span>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-                </b-nav-item-dropdown>
+                    <b-dropdown-item to="/category">
+                        <font-awesome-icon icon="asterisk" />
+                        <span >Category</span>
+                    </b-dropdown-item>
+                    <b-dropdown-item to="/product">
+                        <font-awesome-icon icon="asterisk" />
+                        <span >Product</span>
+                    </b-dropdown-item>
+                </b-nav-item-dropdown> -->
+                <!--
                 <b-nav-item-dropdown
                     id="admin-menu"
                     v-if="hasAnyAuthority('ROLE_ADMIN')"
@@ -65,7 +74,32 @@
                         <font-awesome-icon icon="book" />
                         <span>API</span>
                     </b-dropdown-item>
-                </b-nav-item-dropdown>
+                </b-nav-item-dropdown> -->
+                <b-nav-item to="/category" v-if="authenticated">
+                    <span>
+                        <font-awesome-icon icon="th-list" />
+                        <span>Danh mục</span>
+                    </span>
+                </b-nav-item>
+                <b-nav-item to="/product" v-if="authenticated">
+                    <span>
+                        <font-awesome-icon icon="th-list" />
+                        <span>Sản phẩm</span>
+                    </span>
+                </b-nav-item>
+                <b-nav-item to="/login" v-if="!authenticated">
+                    <span>
+                        <font-awesome-icon icon="user" />
+                        <span>Đăng nhập</span>
+                    </span>
+                </b-nav-item>
+                <b-nav-item to="/logout" v-if="authenticated" v-on:click="logout()">
+                    <span>
+                        <font-awesome-icon icon="user" />
+                        <span>Đăng xuất</span>
+                    </span>
+                </b-nav-item>
+                <!--
                 <b-nav-item-dropdown
                     right
                     href="javascript:void(0);"
@@ -99,7 +133,8 @@
                         <font-awesome-icon icon="user-plus" />
                         <span>Register</span>
                     </b-dropdown-item>
-                </b-nav-item-dropdown>
+                </b-nav-item-dropdown>-->
+
             </b-navbar-nav>
         </b-collapse>
     </b-navbar>
