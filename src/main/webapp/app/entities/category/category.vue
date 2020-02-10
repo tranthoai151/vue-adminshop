@@ -2,16 +2,9 @@
     <div>
         <h2 id="page-heading">
             <span id="category-heading">Categories</span>
-            <!-- <router-link :to="{name: 'CategoryCreate'}" tag="button" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-category">
-                <font-awesome-icon icon="plus"></font-awesome-icon>
-                <span >
-                    Create a new Category
-                </span>
-            </router-link>   -->
             <iCus-add-item :title="title" :toLink="toLink"></iCus-add-item>
-            <!-- <b-button variant="primary" class="float-right"><font-awesome-icon icon="plus"></font-awesome-icon> Tạo mới danh mục</b-button> -->
-
         </h2>
+        
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -42,18 +35,36 @@
                     <td>{{category.name}}</td>
                     <td>{{category.status}}</td>
                     <td class="text-right">
+                        <!-- <div class="btn-group">
+                            <b-button-group vertical>
+                                <b-button pill variant="info" class="btn-sm">
+                                    <font-awesome-icon icon="eye"></font-awesome-icon>
+                                    <span class="d-none d-md-inline">Xem chi tiết</span>
+                                </b-button>
+                                <b-button pill variant="secondary" class="btn-sm">
+                                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                    <span class="d-none d-md-inline">Chỉnh sửa</span>
+                                </b-button>
+                                <b-button pill variant="danger" class="btn-sm">
+                                    <font-awesome-icon icon="times"></font-awesome-icon>
+                                    <span class="d-none d-md-inline">Xoá</span>
+                                </b-button>
+                            </b-button-group>
+                        </div>
+                          -->
                         <div class="btn-group">
-                            <router-link :to="{name: 'CategoryView', params: {categoryId: category.id}}" tag="button" class="btn btn-info btn-sm details">
+                            <router-link :to="{name: 'CategoryView', params: {categoryId: category.id}}" pill=true tag="b-button" class="btn btn-info btn-sm details rounded-pill btnCustom">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
                                 <span class="d-none d-md-inline">View</span>
                             </router-link>
-                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: category.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: category.id}}"  tag="b-button" class="btn btn-primary btn-sm edit rounded-pill btnCustom">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline">Edit</span>
                             </router-link>
                             <b-button v-on:click="prepareRemove(category)"
                                    variant="danger"
-                                   class="btn btn-sm"
+                                   class="btn btn-sm btnCustom"
+                                   pill
                                    v-b-modal.removeEntity>
                                 <font-awesome-icon icon="times"></font-awesome-icon>
                                 <span class="d-none d-md-inline">Delete</span>
@@ -79,7 +90,7 @@
                 <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
             </div>
             <div class="row justify-content-center">
-                <b-pagination size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+                <b-pagination pills size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
             </div>
         </div>
     </div>
@@ -87,3 +98,8 @@
 
 <script lang="ts" src="./category.component.ts">
 </script>
+<style scoped>
+    .btnCustom{
+        margin-left: 3px;
+    }
+</style>

@@ -64,7 +64,7 @@ public class CategoryResource {
         if (category.getId() != null) {
             throw new BadRequestAlertException("A new category cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Category result = categoryRepository.save(category);
+        Category result = categoryService.createCategory(category);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -85,7 +85,7 @@ public class CategoryResource {
         if (category.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        Category result = categoryRepository.save(category);
+        Category result = categoryService.updateCategory(category);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, category.getId().toString()))
             .body(result);

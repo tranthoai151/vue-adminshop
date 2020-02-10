@@ -24,20 +24,17 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public Optional<Category> getCategory(Long id) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findById(id);
 	}
 
 	@Override
 	public Category createCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		return category = categoryRepository.save(category);
 	}
 
 	@Override
 	public Category updateCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
+		return category = categoryRepository.save(category);
 	}
 
 	@Override
