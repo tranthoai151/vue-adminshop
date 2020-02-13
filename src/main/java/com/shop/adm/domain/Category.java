@@ -32,6 +32,10 @@ public class Category implements Serializable {
 
     @Column(name = "status")
     private String status;
+    
+    @OneToOne
+    @JoinColumn(unique = true)
+    private File file;
 
     @OneToMany(mappedBy = "category")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -59,7 +63,7 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public String getImgUrl() {
+	public String getImgUrl() {
         return imgUrl;
     }
 
@@ -84,8 +88,16 @@ public class Category implements Serializable {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public File getFile() {
+		return file;
+	}
 
-    public Set<Product> getProducts() {
+	public void setFile(File file) {
+		this.file = file;
+	}
+
+	public Set<Product> getProducts() {
         return products;
     }
 
