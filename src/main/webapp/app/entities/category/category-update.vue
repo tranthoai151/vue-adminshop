@@ -29,6 +29,12 @@
                         <input type="text" class="form-control" name="status" id="category-status"
                             :class="{'valid': !$v.category.status.$invalid, 'invalid': $v.category.status.$invalid }" v-model="$v.category.status.$model" />
                     </div>
+                    <div class="form-group">
+                        <input type="file" @change="onFileChange" />
+                        <div id="preview">
+                            <img v-if="url" :src="url" />
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <button type="button" id="cancel-save" class="btn btn-secondary" v-on:click="previousState()">
@@ -44,3 +50,15 @@
 </template>
 <script lang="ts" src="./category-update.component.ts">
 </script>
+<style scoped>
+#preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#preview img {
+  max-width: 100%;
+  max-height: 500px;
+}
+</style>

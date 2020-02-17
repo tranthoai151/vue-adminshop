@@ -23,6 +23,7 @@
                     <th v-on:click="changeOrder('id')"><span>ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('name')"><span>Name</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
                     <th v-on:click="changeOrder('status')"><span>Status</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
+                    <th><span>Image</span></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -34,24 +35,10 @@
                     </td>
                     <td>{{category.name}}</td>
                     <td>{{category.status}}</td>
+                    <td>
+                        <img :src="category.imgUrl" alt="">
+                    </td>
                     <td class="text-right">
-                        <!-- <div class="btn-group">
-                            <b-button-group vertical>
-                                <b-button pill variant="info" class="btn-sm">
-                                    <font-awesome-icon icon="eye"></font-awesome-icon>
-                                    <span class="d-none d-md-inline">Xem chi tiết</span>
-                                </b-button>
-                                <b-button pill variant="secondary" class="btn-sm">
-                                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                    <span class="d-none d-md-inline">Chỉnh sửa</span>
-                                </b-button>
-                                <b-button pill variant="danger" class="btn-sm">
-                                    <font-awesome-icon icon="times"></font-awesome-icon>
-                                    <span class="d-none d-md-inline">Xoá</span>
-                                </b-button>
-                            </b-button-group>
-                        </div>
-                          -->
                         <div class="btn-group">
                             <router-link :to="{name: 'CategoryView', params: {categoryId: category.id}}" pill=true tag="b-button" class="btn btn-info btn-sm details rounded-pill btnCustom">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>

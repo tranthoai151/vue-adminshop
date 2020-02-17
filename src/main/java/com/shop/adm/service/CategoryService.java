@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shop.adm.domain.Category;
 
@@ -13,7 +14,7 @@ public interface CategoryService {
 	
 	Optional<Category> getCategory(Long id);
 	
-	Category createCategory(Category category);
+	Category createCategory(Category category, MultipartFile file);
 	
 	Category updateCategory(Category category);
 	

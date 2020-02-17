@@ -14,13 +14,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional; 
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 import javax.validation.Valid;
+
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -59,12 +63,15 @@ public class CategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/categories")
-    public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) throws URISyntaxException {
-        log.debug("REST request to save Category : {}", category);
+    public ResponseEntity<Category> createCategory(@RequestParam String jsonCategory, @RequestParam(required = false) MultipartFile files) throws URISyntaxException, IOException {
+        log.debug("REST request to save Category : {}", jsonCategory);
+        ObjectMapper mapper = new ObjectMapper();
+        Category category =  mapper.readValue(jsonCategory.toString(), Category.class);
+
         if (category.getId() != null) {
             throw new BadRequestAlertException("A new category cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Category result = categoryService.createCategory(category);
+        Category result = categoryService.createCategory(category, files);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);

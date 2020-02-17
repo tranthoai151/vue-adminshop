@@ -9,9 +9,9 @@ import LoginForm from '@/account/login-form/login-form.vue';
   components: {
     ribbon: Ribbon,
     'jhi-navbar': JhiNavbar,
-    'login-form': LoginForm,
+    'login-form': LoginForm
 
-    'jhi-footer': JhiFooter
+    // 'jhi-footer': JhiFooter
   }
 })
 export default class App extends Vue {}

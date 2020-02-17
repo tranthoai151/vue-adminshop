@@ -10,4 +10,12 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  */
 @ConfigurationProperties(prefix = "application", ignoreUnknownFields = false)
 public class ApplicationProperties {
+    private String docdb;
+
+    public String getDocdb() {
+        return docdb;
+    }
+    public void setDocdb(String docdb) {
+        this.docdb = docdb;
+    }
 }
