@@ -14,6 +14,8 @@ import com.shop.adm.domain.File;
 import com.shop.adm.repository.CategoryRepository;
 import com.shop.adm.service.CategoryService;
 import com.shop.adm.service.util.FileService;
+import com.shop.adm.util.Constant;
+import com.shop.adm.util.StatusEnum;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
@@ -43,12 +45,18 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public Category createCategory(Category category, MultipartFile file) {
+		//create file in storage
+		if(file != null) {
+			fileService.createFileImage(file);
+		}
+		
 		File f = new File();
 		f.setName(file.getOriginalFilename());
-		f.setStatus(1);
+		f.setStatus(StatusEnum.ACTIVE.getValue());
 		fileService.save(f);
-		fileService.createFileImage(file);
+		
 		category.setFile(f);
+		category.setImgUrl(Constant.URL_IMG + f.getId());
 		return category = categoryRepository.save(category);
 	}
 

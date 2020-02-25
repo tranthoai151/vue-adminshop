@@ -23,7 +23,12 @@ export default class Category extends mixins(Vue2Filters.mixin, AlertMixin) {
   public toLink: object = {
     name: 'CategoryCreate'
   };
-
+  public fields = [
+    { key: 'id', label: 'Mã danh mục', tdClass: 'align-middle' },
+    { key: 'name', label: 'Tên danh mục', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'image', label: 'Hình ảnh', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'config', label: '', class: 'text-center', tdClass: 'align-middle' }
+  ];
   public isFetching = false;
 
   public mounted(): void {

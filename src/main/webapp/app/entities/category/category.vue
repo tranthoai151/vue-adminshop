@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2 id="page-heading">
-            <span id="category-heading">Categories</span>
+            <span id="category-heading">DANH MỤC</span>
             <iCus-add-item :title="title" :toLink="toLink"></iCus-add-item>
         </h2>
         
@@ -16,51 +16,21 @@
         <div class="alert alert-warning" v-if="!isFetching && categories && categories.length === 0">
             <span>No categories found</span>
         </div>
-        <div class="table-responsive" v-if="categories && categories.length > 0">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th v-on:click="changeOrder('id')"><span>ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('name')"><span>Name</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('status')"><span>Status</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th><span>Image</span></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="category in categories"
-                    :key="category.id">
-                    <td>
-                        <router-link :to="{name: 'CategoryView', params: {categoryId: category.id}}">{{category.id}}</router-link>
-                    </td>
-                    <td>{{category.name}}</td>
-                    <td>{{category.status}}</td>
-                    <td>
-                        <img :src="category.imgUrl" alt="">
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <router-link :to="{name: 'CategoryView', params: {categoryId: category.id}}" pill=true tag="b-button" class="btn btn-info btn-sm details rounded-pill btnCustom">
-                                <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline">View</span>
-                            </router-link>
-                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: category.id}}"  tag="b-button" class="btn btn-primary btn-sm edit rounded-pill btnCustom">
-                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline">Edit</span>
-                            </router-link>
-                            <b-button v-on:click="prepareRemove(category)"
-                                   variant="danger"
-                                   class="btn btn-sm btnCustom"
-                                   pill
-                                   v-b-modal.removeEntity>
-                                <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline">Delete</span>
-                            </b-button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+        <div >
+            <b-table 
+                striped hover fixed head-variant
+                :items="categories" 
+                :fields="fields">
+                <template v-slot:cell(image)="data">
+                    <b-img :src="data.item.imgUrl" class="img-category"></b-img>
+                </template>
+                <template v-slot:cell(config)="data">
+                    <b-button-group>
+                        <b-button variant="info">Cập nhật</b-button>
+                        <b-button variant="danger">Xoá</b-button>
+                    </b-button-group>
+                </template>
+            </b-table>
         </div>
         <b-modal ref="removeEntity" id="removeEntity" >
             <span slot="modal-title"><span id="shopdminApp.category.delete.question">Confirm delete operation</span></span>
@@ -77,7 +47,7 @@
                 <jhi-item-count :page="page" :total="queryCount" :itemsPerPage="itemsPerPage"></jhi-item-count>
             </div>
             <div class="row justify-content-center">
-                <b-pagination pills size="md" :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
+                <b-pagination pills :total-rows="totalItems" v-model="page" :per-page="itemsPerPage" :change="loadPage(page)"></b-pagination>
             </div>
         </div>
     </div>
@@ -88,5 +58,9 @@
 <style scoped>
     .btnCustom{
         margin-left: 3px;
+    }
+    .img-category{
+        height: 100px;
+        width: 100px;
     }
 </style>

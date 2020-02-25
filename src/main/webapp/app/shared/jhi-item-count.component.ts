@@ -5,8 +5,10 @@ import { Prop, Vue } from 'vue-property-decorator';
 export default class JhiItemCountComponent extends Vue {
   @Prop()
   page: number;
+
   @Prop()
   total: number;
+
   @Prop()
   itemsPerPage: number;
   i18nEnabled = false;

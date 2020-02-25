@@ -20,7 +20,9 @@ import {
   BLink,
   BAlert,
   BModal,
-  VBModal
+  VBModal,
+  BTable,
+  BImg
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -47,4 +49,6 @@ export function initBootstrapVue(vue) {
   vue.component('b-nav-item-dropdown', BNavItemDropdown);
   vue.component('b-modal', BModal);
   vue.directive('b-modal', VBModal);
+  vue.component('b-table', BTable);
+  vue.component('b-img', BImg);
 }

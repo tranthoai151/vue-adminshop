@@ -57,10 +57,6 @@ public class CategoryResource {
 
     /**
      * {@code POST  /categories} : Create a new category.
-     *
-     * @param category the category to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new category, or with status {@code 400 (Bad Request)} if the category has already an ID.
-     * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/categories")
     public ResponseEntity<Category> createCategory(@RequestParam String jsonCategory, @RequestParam(required = false) MultipartFile files) throws URISyntaxException, IOException {
