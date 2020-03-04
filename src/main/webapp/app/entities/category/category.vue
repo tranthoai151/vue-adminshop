@@ -4,7 +4,7 @@
             <span id="category-heading">DANH MỤC</span>
             <iCus-add-item :title="title" :toLink="toLink"></iCus-add-item>
         </h2>
-        
+
         <b-alert :show="dismissCountDown"
             dismissible
             :variant="alertType"
@@ -17,19 +17,33 @@
             <span>No categories found</span>
         </div>
         <div >
-            <b-table 
+            <b-table
                 striped hover fixed head-variant
-                :items="categories" 
+                :items="categories"
                 :fields="fields">
                 <template v-slot:cell(image)="data">
                     <b-img :src="data.item.imgUrl" class="img-category"></b-img>
                 </template>
                 <template v-slot:cell(config)="data">
-                    <item-buttons 
-                        :entity="data.item"
-                        :clickDetailEntiy="clickDetailEntiy(entity)"
-                        >
-                    </item-buttons>
+                     <div class="btn-group">
+                            <b-button pill variant="success">
+                                <router-link :to="{name: 'CategoryView', params: {categoryId: data.item.id}}">
+                                    <font-awesome-icon icon="eye"></font-awesome-icon>
+                                    <span class="d-none d-md-inline">View</span>
+                                </router-link>
+                            </b-button>
+                            <b-button pill variant="primary">
+                                <router-link :to="{name: 'CategoryEdit', params: {categoryId: data.item.id}}">
+                                    <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </router-link>
+                            </b-button>
+                            <b-button pill variant="danger" v-on:click="prepareRemove(category)"
+                                   v-b-modal.removeEntity>
+                                <font-awesome-icon icon="times"></font-awesome-icon>
+                                <span class="d-none d-md-inline">Delete ABC</span>
+                            </b-button>
+                        </div>
                 </template>
             </b-table>
         </div>
