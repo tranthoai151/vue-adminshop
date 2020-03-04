@@ -21,17 +21,21 @@ import com.shop.adm.repository.FileRepository;
 import com.shop.adm.service.util.FileService;
 import com.shop.adm.web.rest.errors.MyFileNotFoundException;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Service
 public class FileServiceImpl implements FileService {
 
 	@Autowired
 	private ApplicationProperties applicationProperties;
-	
+
 	@Autowired
 	private FileRepository fileRepository;
-	
+
     private Path fileStorageLocation;
 
+    @Autowired
+    private HttpServletRequest request;
 
 	public static Integer MAX_LENGTH_ORIGINAL_FILE_NAME = 200;
 
@@ -69,7 +73,8 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public String getStorageFile() {
-		return applicationProperties.getDocdb();
+	    String realPath = request.getServletContext().getRealPath(applicationProperties.getDocdb());
+		return realPath;
 	}
 
 	@Override
@@ -95,7 +100,7 @@ public class FileServiceImpl implements FileService {
 		responseHeaders.add("Content-Type", "application/octet-stream");
 		responseHeaders.add("Content-Disposition", "attachment; filename=" + file.getName().replace(" ", ""));
         responseHeaders.add("Content-Transfer-Encoding", "binary");
-        
+
         String filePath = getStorageFile();
         AbstractResource resource = null;
         resource = new FileSystemResource(filePath + java.io.File.separator + file.getName());

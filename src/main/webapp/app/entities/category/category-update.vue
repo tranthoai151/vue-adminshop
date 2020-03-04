@@ -20,14 +20,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" for="category-imgUrl">Img Url</label>
-                        <input type="text" class="form-control" name="imgUrl" id="category-imgUrl"
-                            :class="{'valid': !$v.category.imgUrl.$invalid, 'invalid': $v.category.imgUrl.$invalid }" v-model="$v.category.imgUrl.$model" />
-                    </div>
-                    <div class="form-group">
                         <label class="form-control-label" for="category-status">Status</label>
-                        <input type="text" class="form-control" name="status" id="category-status"
-                            :class="{'valid': !$v.category.status.$invalid, 'invalid': $v.category.status.$invalid }" v-model="$v.category.status.$model" />
+                        <b-form-select
+                            id="input-3"
+                            :options="status"
+                            v-model="category.status"
+                            required
+                            ></b-form-select>
+                        <!-- <input type="text" class="form-control" name="status" id="category-status"
+                            :class="{'valid': !$v.category.status.$invalid, 'invalid': $v.category.status.$invalid }" v-model="$v.category.status.$model" /> -->
                     </div>
                     <div class="form-group">
                         <input type="file" @change="onFileChange" />

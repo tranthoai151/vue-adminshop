@@ -8,6 +8,7 @@ import { IProduct } from '@/shared/model/product.model';
 import AlertService from '@/shared/alert/alert.service';
 import { ICategory, Category } from '@/shared/model/category.model';
 import CategoryService from './category.service';
+import { Status } from '@/shared/enum/status.enum';
 
 const validations: any = {
   category: {
@@ -33,7 +34,7 @@ export default class CategoryUpdate extends Vue {
   public isSaving = false;
   public url = null;
   public file = null;
-
+  public status = Status;
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.categoryId) {

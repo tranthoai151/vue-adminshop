@@ -36,7 +36,6 @@ export default class AccountService {
             this.router.replace(sessionStorage.getItem('requested-url'));
             sessionStorage.removeItem('requested-url');
           }
-          this.router.push('/welcome');
         } else {
           this.store.commit('logout');
           this.router.push('/');

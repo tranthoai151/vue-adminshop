@@ -25,11 +25,28 @@
                     <b-img :src="data.item.imgUrl" class="img-category"></b-img>
                 </template>
                 <template v-slot:cell(config)="data">
-                    <item-buttons 
-                        :entity="data.item"
-                        :clickDetailEntiy="clickDetailEntiy(entity)"
-                        >
-                    </item-buttons>
+                    <div class="btn-group">
+                        <b-button pill variant="success">
+                            <router-link :to="{name: 'CategoryView', params: {categoryId: data.item.id}}" class="cus-router">
+                                <font-awesome-icon icon="eye"></font-awesome-icon>
+                                <span class="d-none d-md-inline">Chi tiết</span>
+                            </router-link>
+                        </b-button>
+                        <b-button pill variant="primary">
+                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: data.item.id}}" class="cus-router">
+                                <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
+                                <span class="d-none d-md-inline">Cập nhật</span>
+                            </router-link>
+                        </b-button>
+                            
+                        <b-button v-on:click="prepareRemove(product)"
+                            pill
+                            variant="danger"
+                            v-b-modal.removeEntity>
+                            <font-awesome-icon icon="times"></font-awesome-icon>
+                            <span class="d-none d-md-inline">Xoá</span>
+                        </b-button>
+                    </div>
                 </template>
             </b-table>
         </div>
