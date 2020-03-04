@@ -8,6 +8,7 @@ import router from './router';
 import * as config from './shared/config/config';
 import * as bootstrapVueConfig from './shared/config/config-bootstrap-vue';
 import JhiItemCountComponent from './shared/jhi-item-count.vue';
+import ItemButtonsComponent from './shared/item-buttons.vue';
 import AuditsService from './admin/audits/audits.service';
 
 import AddItemEntity from './shared/add-entity/add-item.vue';
@@ -38,6 +39,7 @@ Vue.use(Vue2Filters);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.component('jhi-item-count', JhiItemCountComponent);
 Vue.component('iCus-add-item', AddItemEntity);
+Vue.component('item-buttons', ItemButtonsComponent);
 
 const store = config.initVueXStore(Vue);
 

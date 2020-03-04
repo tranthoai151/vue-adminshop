@@ -109,4 +109,9 @@ export default class Category extends mixins(Vue2Filters.mixin, AlertMixin) {
   public closeDialog(): void {
     (<any>this.$refs.removeEntity).hide();
   }
+
+  public clickDetailEntiy(category: ICategory): void {
+    console.log('detail in parent');
+    console.log(category);
+  }
 }

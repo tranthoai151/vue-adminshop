@@ -25,10 +25,11 @@
                     <b-img :src="data.item.imgUrl" class="img-category"></b-img>
                 </template>
                 <template v-slot:cell(config)="data">
-                    <b-button-group>
-                        <b-button variant="info">Cập nhật</b-button>
-                        <b-button variant="danger">Xoá</b-button>
-                    </b-button-group>
+                    <item-buttons 
+                        :entity="data.item"
+                        :clickDetailEntiy="clickDetailEntiy(entity)"
+                        >
+                    </item-buttons>
                 </template>
             </b-table>
         </div>

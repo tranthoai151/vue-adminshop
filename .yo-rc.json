@@ -40,7 +40,9 @@
         "name": "generator-jhipster-vuejs",
         "version": "1.3.0"
       }
-    ]
+    ],
+    "herokuAppName": "shopdmin",
+    "herokuDeployType": "jar"
   },
   "generator-jhipster-vuejs": {
     "jhipsterVersion": "6.5.1",
@@ -49,7 +51,7 @@
     "useSass": true,
     "clientPackageManager": "npm",
     "clientFramework": "vue",
-    "clientTheme": "flatly",
-    "clientThemeVariant": "dark"
+    "clientTheme": "litera",
+    "clientThemeVariant": "primary"
   }
 }

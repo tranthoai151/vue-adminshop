@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * A Product.
@@ -43,6 +44,10 @@ public class Product implements Serializable {
 
     @Column(name = "status")
     private String status;
+
+    @OneToMany
+    @JoinColumn(unique = true)
+    private List<File> files;
 
     @ManyToOne
     @JsonIgnoreProperties("products")
@@ -146,6 +151,15 @@ public class Product implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    public List<File> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<File> files) {
+        this.files = files;
     }
 
     public Category getCategory() {
