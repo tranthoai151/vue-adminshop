@@ -38,9 +38,6 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    @Autowired
-    ServletContext context;
-
 	public static Integer MAX_LENGTH_ORIGINAL_FILE_NAME = 200;
 
 	@Override
@@ -82,9 +79,7 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public String getStorageFile() {
-        String localpath = context.getRealPath("image-upload");
-//		return httpServletRequest.getServletContext().getRealPath("/img");
-        return "G:\\TranQuanThoaiData\\myshop\\images";
+		return httpServletRequest.getServletContext().getRealPath("/images");
 	}
 
 	@Override

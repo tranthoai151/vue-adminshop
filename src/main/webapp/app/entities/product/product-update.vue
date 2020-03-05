@@ -20,11 +20,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label" for="product-imgUrl">Img Url</label>
-                        <input type="text" class="form-control" name="imgUrl" id="product-imgUrl"
-                            :class="{'valid': !$v.product.imgUrl.$invalid, 'invalid': $v.product.imgUrl.$invalid }" v-model="$v.product.imgUrl.$model" />
-                    </div>
-                    <div class="form-group">
                         <label class="form-control-label" for="product-price">Price</label>
                         <input type="text" class="form-control" name="price" id="product-price"
                             :class="{'valid': !$v.product.price.$invalid, 'invalid': $v.product.price.$invalid }" v-model="$v.product.price.$model" />
