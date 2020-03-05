@@ -50,11 +50,17 @@
                             :class="{'valid': !$v.product.status.$invalid, 'invalid': $v.product.status.$invalid }" v-model="$v.product.status.$model" />
                     </div>
                     <div class="form-group">
-                        <label class="form-control-label"  for="product-category">Category</label>
+                        <label class="form-control-label" for="product-category">Category</label>
                         <select class="form-control" id="product-category" name="category" v-model="product.category">
                             <option v-bind:value="null"></option>
                             <option v-bind:value="product.category && categoryOption.id === product.category.id ? product.category : categoryOption" v-for="categoryOption in categories" :key="categoryOption.id">{{categoryOption.id}}</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="file" @change="onFileChange" />
+                        <div id="preview">
+                            <img v-if="url" :src="url" />
+                        </div>
                     </div>
                 </div>
                 <div>

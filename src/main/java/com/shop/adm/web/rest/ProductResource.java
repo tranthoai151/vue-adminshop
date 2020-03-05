@@ -1,7 +1,9 @@
 package com.shop.adm.web.rest;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shop.adm.domain.Product;
 import com.shop.adm.repository.ProductRepository;
+import com.shop.adm.service.ProductService;
 import com.shop.adm.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -14,12 +16,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+
 import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -43,17 +48,22 @@ public class ProductResource {
 
     private final ProductRepository productRepository;
 
-    public ProductResource(ProductRepository productRepository) {
+    private final ProductService productService;
+
+    public ProductResource(ProductRepository productRepository, ProductService productService) {
         this.productRepository = productRepository;
+        this.productService = productService;
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) throws URISyntaxException {
-        log.debug("REST request to save Product : {}", product);
+    public ResponseEntity<Product> createProduct(@RequestParam String jsonProduct, @RequestParam(required = false) MultipartFile files) throws URISyntaxException, IOException {
+        log.debug("REST request to save Product : {}", jsonProduct);
+        ObjectMapper mapper = new ObjectMapper();
+        Product product = mapper.readValue(jsonProduct.toString(), Product.class);
         if (product.getId() != null) {
             throw new BadRequestAlertException("A new product cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        Product result = productRepository.save(product);
+        Product result = productService.save(product, files);
         return ResponseEntity.created(new URI("/api/products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
             .body(result);

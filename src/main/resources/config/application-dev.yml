@@ -117,7 +117,7 @@ jhipster:
   audit-events:
     retention-period: 30 # Number of days before audit events are deleted.
 application:
-    docdb: /Users/Dev/myHome/vuetifyshop/tmpImg
+    docdb: /images
 
 # ===================================================================
 # Application specific properties

@@ -21,61 +21,38 @@
             <span>No products found</span>
         </div>
         <div class="table-responsive" v-if="products && products.length > 0">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th v-on:click="changeOrder('id')"><span>ID</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('name')"><span>Name</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('imgUrl')"><span>Img Url</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('price')"><span>Price</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('discount')"><span>Discount</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('descriptions')"><span>Descriptions</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('quantity')"><span>Quantity</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('status')"><span>Status</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th v-on:click="changeOrder('category.id')"><span>Category</span> <font-awesome-icon icon="sort"></font-awesome-icon></th>
-                    <th></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr v-for="product in products"
-                    :key="product.id">
-                    <td>
-                        <router-link :to="{name: 'ProductView', params: {productId: product.id}}">{{product.id}}</router-link>
-                    </td>
-                    <td>{{product.name}}</td>
-                    <td>{{product.imgUrl}}</td>
-                    <td>{{product.price}}</td>
-                    <td>{{product.discount}}</td>
-                    <td>{{product.descriptions}}</td>
-                    <td>{{product.quantity}}</td>
-                    <td>{{product.status}}</td>
-                    <td>
-                        <div v-if="product.category">
-                            <router-link :to="{name: 'CategoryView', params: {categoryId: product.category.id}}">{{product.category.id}}</router-link>
-                        </div>
-                    </td>
-                    <td class="text-right">
-                        <div class="btn-group">
-                            <router-link :to="{name: 'ProductView', params: {productId: product.id}}" tag="button" class="btn btn-info btn-sm details">
+            <b-table
+                striped hover fixed head-variant
+                :items="products"
+                :fields="fields">
+                <template v-slot:cell(image)="data">
+                    <b-img :src="data.item.imgUrl" class="img-category"></b-img>
+                </template>
+                <template v-slot:cell(config)="data">
+                    <div class="btn-group">
+                        <b-button pill variant="success">
+                            <router-link :to="{name: 'CategoryView', params: {categoryId: data.item.id}}" class="cus-router">
                                 <font-awesome-icon icon="eye"></font-awesome-icon>
-                                <span class="d-none d-md-inline">View</span>
+                                <span class="d-none d-md-inline">Chi tiết</span>
                             </router-link>
-                            <router-link :to="{name: 'ProductEdit', params: {productId: product.id}}"  tag="button" class="btn btn-primary btn-sm edit">
+                        </b-button>
+                        <b-button pill variant="primary">
+                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: data.item.id}}" class="cus-router">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
-                                <span class="d-none d-md-inline">Edit</span>
+                                <span class="d-none d-md-inline">Cập nhật</span>
                             </router-link>
-                            <b-button v-on:click="prepareRemove(product)"
-                                   variant="danger"
-                                   class="btn btn-sm"
-                                   v-b-modal.removeEntity>
-                                <font-awesome-icon icon="times"></font-awesome-icon>
-                                <span class="d-none d-md-inline">Delete</span>
-                            </b-button>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                        </b-button>
+
+                        <b-button v-on:click="prepareRemove(data.item)"
+                            pill
+                            variant="danger"
+                            v-b-modal.removeEntity>
+                            <font-awesome-icon icon="times"></font-awesome-icon>
+                            <span class="d-none d-md-inline">Xoá</span>
+                        </b-button>
+                    </div>
+                </template>
+            </b-table>
         </div>
         <b-modal ref="removeEntity" id="removeEntity" >
             <span slot="modal-title"><span id="shopdminApp.product.delete.question">Confirm delete operation</span></span>

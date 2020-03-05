@@ -22,6 +22,16 @@ export default class Product extends mixins(Vue2Filters.mixin, AlertMixin) {
 
   public isFetching = false;
 
+  public fields = [
+    { key: 'id', label: 'Mã sản phẩm', tdClass: 'align-middle' },
+    { key: 'name', label: 'Tên', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'price', label: 'Giá', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'quantity', label: 'Số lượng', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'category', label: 'Loại', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'image', label: 'Hình ảnh', class: 'text-center', tdClass: 'align-middle' },
+    { key: 'config', label: '', class: 'text-center', tdClass: 'align-middle' }
+  ];
+
   public mounted(): void {
     this.retrieveAllProducts();
   }

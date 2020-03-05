@@ -21,6 +21,7 @@ import com.shop.adm.repository.FileRepository;
 import com.shop.adm.service.util.FileService;
 import com.shop.adm.web.rest.errors.MyFileNotFoundException;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 @Service
@@ -37,6 +38,8 @@ public class FileServiceImpl implements FileService {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
+    @Autowired
+    ServletContext context;
 
 	public static Integer MAX_LENGTH_ORIGINAL_FILE_NAME = 200;
 
@@ -52,7 +55,12 @@ public class FileServiceImpl implements FileService {
 		return f;
 	}
 
-	@Override
+    @Override
+    public File getFileById(Long id) {
+        return fileRepository.getOne(id);
+    }
+
+    @Override
 	public File createFileImage(MultipartFile file) {
 
 		String path = getStorageFile();
@@ -74,8 +82,9 @@ public class FileServiceImpl implements FileService {
 	}
 
 	public String getStorageFile() {
-	    String realPath = httpServletRequest.getServletContext().getRealPath("/img");
-		return realPath;
+        String localpath = context.getRealPath("image-upload");
+//		return httpServletRequest.getServletContext().getRealPath("/img");
+        return "G:\\TranQuanThoaiData\\myshop\\images";
 	}
 
 	@Override
@@ -93,7 +102,21 @@ public class FileServiceImpl implements FileService {
         }
 	}
 
-	@Override
+    @Override
+    public void delete(Long id) {
+	    //get file in database
+        File file = fileRepository.getOne(id);
+
+	    //find image in local store and delete
+        if(file != null){
+            deleteFileInStorage(file.getStorage()+ "/" + file.getName());
+        }
+
+	    //delete file in database
+        fileRepository.deleteById(id);
+    }
+
+    @Override
 	public AbstractResource download(Integer fileId , HttpHeaders responseHeaders) {
 		// TODO Auto-generated method stub
         File file = fileRepository.getOne(new Long(fileId));
@@ -107,5 +130,10 @@ public class FileServiceImpl implements FileService {
         resource = new FileSystemResource(filePath + java.io.File.separator + file.getName());
 		return resource;
 	}
+
+	public void deleteFileInStorage(String localStore){
+        java.io.File file = new java.io.File(localStore);
+        file.delete();
+    }
 
 }

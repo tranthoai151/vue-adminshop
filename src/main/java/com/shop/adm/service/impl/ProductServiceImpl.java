@@ -32,7 +32,9 @@ public class ProductServiceImpl implements ProductService {
         File f = new File();
         f.setName(file.getOriginalFilename());
         f.setStatus(StatusEnum.ACTIVE.getValue());
-        product.setImgUrl(Constant.URL_IMG);
+        fileService.save(f);
+
+        product.setImgUrl(Constant.URL_IMG + f.getId());
         productRepository.save(product);
         return product;
     }

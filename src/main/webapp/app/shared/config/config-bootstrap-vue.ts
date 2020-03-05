@@ -22,7 +22,8 @@ import {
   BModal,
   VBModal,
   BTable,
-  BImg
+  BImg,
+  BFormSelect
 } from 'bootstrap-vue';
 
 export function initBootstrapVue(vue) {
@@ -51,4 +52,5 @@ export function initBootstrapVue(vue) {
   vue.directive('b-modal', VBModal);
   vue.component('b-table', BTable);
   vue.component('b-img', BImg);
+  vue.component('b-form-select', BFormSelect);
 }

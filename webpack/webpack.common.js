@@ -89,6 +89,7 @@ module.exports = {
       { from: './node_modules/swagger-ui/dist/swagger-ui.min.js', to: 'swagger-ui/dist/swagger-ui.min.js' },
       { from: './src/main/webapp/swagger-ui/', to: 'swagger-ui' },
       { from: './src/main/webapp/content/', to: 'content' },
+      { from: './src/main/webapp/images/', to: 'images' },
       { from: './src/main/webapp/favicon.ico', to: 'favicon.ico' },
       {
         from: './src/main/webapp/manifest.webapp',

@@ -8,6 +8,7 @@ import { ICategory } from '@/shared/model/category.model';
 import AlertService from '@/shared/alert/alert.service';
 import { IProduct, Product } from '@/shared/model/product.model';
 import ProductService from './product.service';
+import { Status } from '@/shared/enum/status.enum';
 
 const validations: any = {
   product: {
@@ -35,6 +36,9 @@ export default class ProductUpdate extends Vue {
 
   public categories: ICategory[] = [];
   public isSaving = false;
+  public url = null;
+  public file = null;
+  public status = Status;
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -43,6 +47,10 @@ export default class ProductUpdate extends Vue {
       }
       vm.initRelationships();
     });
+  }
+  onFileChange(e) {
+    this.file = e.target.files[0];
+    this.url = URL.createObjectURL(this.file);
   }
 
   public save(): void {
@@ -57,8 +65,9 @@ export default class ProductUpdate extends Vue {
           this.alertService().showAlert(message, 'info');
         });
     } else {
+      const fileUpload: FormData = this.getFileUploadInformation();
       this.productService()
-        .create(this.product)
+        .create(this.product, fileUpload)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
@@ -73,6 +82,7 @@ export default class ProductUpdate extends Vue {
       .find(productId)
       .then(res => {
         this.product = res;
+        this.url = 'http://localhost:8080' + res.imgUrl;
       });
   }
 
@@ -86,5 +96,10 @@ export default class ProductUpdate extends Vue {
       .then(res => {
         this.categories = res.data;
       });
+  }
+  public getFileUploadInformation() {
+    const fileUpload = new FormData();
+    fileUpload.append('files', this.file);
+    return fileUpload;
   }
 }

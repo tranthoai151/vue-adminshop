@@ -31,9 +31,10 @@ export default class ProductService {
     });
   }
 
-  public create(entity: IProduct): Promise<IProduct> {
+  public create(product: IProduct, data: FormData): Promise<IProduct> {
+    data.append('jsonProduct', JSON.stringify(product));
     return new Promise<IProduct>(resolve => {
-      axios.post(`${baseApiUrl}`, entity).then(function(res) {
+      axios.post(`${baseApiUrl}`, product).then(function(res) {
         resolve(res.data);
       });
     });

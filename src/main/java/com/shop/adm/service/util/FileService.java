@@ -8,12 +8,16 @@ import org.springframework.web.multipart.MultipartFile;
 import com.shop.adm.domain.File;
 
 public interface FileService {
-	
+
     File save(File File);
-    
+
+    File getFileById(Long id);
+
     File createFileImage(MultipartFile file);
-    
+
     Resource loadFileAsResource(String fileName);
-    
+
+    void delete(Long id);
+
     AbstractResource download (Integer fileId, HttpHeaders responseHeaders);
 }
