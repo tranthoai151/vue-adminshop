@@ -59,7 +59,7 @@ public class FileServiceImpl implements FileService {
 				? file.getOriginalFilename().substring(0, MAX_LENGTH_ORIGINAL_FILE_NAME)
 				: file.getOriginalFilename();
 		if (file != null) {
-			java.io.File fileCreate = new java.io.File(path +"/"+ fileName);
+			java.io.File fileCreate = new java.io.File(path +java.io.File.separator+ fileName);
 			try {
 				fileCreate.createNewFile();
 				FileOutputStream fos = new FileOutputStream(fileCreate);
@@ -92,7 +92,12 @@ public class FileServiceImpl implements FileService {
         }
 	}
 
-	@Override
+    @Override
+    public void delete(Long id) {
+
+    }
+
+    @Override
 	public AbstractResource download(Integer fileId , HttpHeaders responseHeaders) {
 		// TODO Auto-generated method stub
         File file = fileRepository.getOne(new Long(fileId));

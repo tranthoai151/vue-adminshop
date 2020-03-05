@@ -50,6 +50,7 @@ export default class CategoryUpdate extends Vue {
 
   public save(): void {
     console.log(this.url);
+    console.log(this.category);
     this.isSaving = true;
     if (this.category.id) {
       this.categoryService()

@@ -19,14 +19,14 @@ import com.shop.adm.util.StatusEnum;
 
 @Service
 public class CategoryServiceImpl implements CategoryService{
-	
-	
+
+
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
     private ApplicationProperties applicationProperties;
-	
+
 	@Autowired
 	private FileService fileService;
 
@@ -49,26 +49,29 @@ public class CategoryServiceImpl implements CategoryService{
 		if(file != null) {
 			fileService.createFileImage(file);
 		}
-		
+
 		File f = new File();
 		f.setName(file.getOriginalFilename());
 		f.setStatus(StatusEnum.ACTIVE.getValue());
 		fileService.save(f);
-		
+
 		category.setFile(f);
 		category.setImgUrl(Constant.URL_IMG + f.getId());
 		return category = categoryRepository.save(category);
 	}
 
 	@Override
-	public Category updateCategory(Category category) {
+	public Category updateCategory(Category category, MultipartFile file) {
+	    if(!file.isEmpty()){
+
+        }
 		return category = categoryRepository.save(category);
 	}
 
 	@Override
 	public void delete(Long id) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
