@@ -19,7 +19,7 @@ insert_final_newline = true
 
 [*.{ts,tsx,js,json,css,scss,sql,ejs}]
 indent_style = space
-indent_size = 2
+indent_size = 4
 
 [*.md]
 trim_trailing_whitespace = false

@@ -83,8 +83,10 @@ public class CategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/categories")
-    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category, MultipartFile files) throws URISyntaxException {
-        log.debug("REST request to update Category : {}", category);
+    public ResponseEntity<Category> updateCategory(@RequestParam String jsonCategory, MultipartFile files) throws URISyntaxException, IOException {
+        log.debug("REST request to update Category : {}", jsonCategory);
+        ObjectMapper mapper = new ObjectMapper();
+        Category category =  mapper.readValue(jsonCategory.toString(), Category.class);
         if (category.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }

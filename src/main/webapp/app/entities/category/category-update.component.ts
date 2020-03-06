@@ -35,6 +35,7 @@ export default class CategoryUpdate extends Vue {
   public url = null;
   public file = null;
   public status = Status;
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       if (to.params.categoryId) {
@@ -43,6 +44,7 @@ export default class CategoryUpdate extends Vue {
       vm.initRelationships();
     });
   }
+
   onFileChange(e) {
     this.file = e.target.files[0];
     this.url = URL.createObjectURL(this.file);
@@ -51,10 +53,11 @@ export default class CategoryUpdate extends Vue {
   public save(): void {
     console.log(this.url);
     console.log(this.category);
+    const fileUpload: FormData = this.getFileUploadInformation();
     this.isSaving = true;
     if (this.category.id) {
       this.categoryService()
-        .update(this.category)
+        .update(this.category, fileUpload)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
@@ -62,7 +65,6 @@ export default class CategoryUpdate extends Vue {
           this.alertService().showAlert(message, 'info');
         });
     } else {
-      const fileUpload: FormData = this.getFileUploadInformation();
       this.categoryService()
         .create(this.category, fileUpload)
         .then(param => {
@@ -94,6 +96,7 @@ export default class CategoryUpdate extends Vue {
         this.products = res.data;
       });
   }
+
   public getFileUploadInformation() {
     const fileUpload = new FormData();
     fileUpload.append('files', this.file);

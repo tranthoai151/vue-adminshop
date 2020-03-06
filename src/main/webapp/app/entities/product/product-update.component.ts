@@ -30,15 +30,18 @@ const validations: any = {
 export default class ProductUpdate extends Vue {
   @Inject('alertService') private alertService: () => AlertService;
   @Inject('productService') private productService: () => ProductService;
-  public product: IProduct = new Product();
-
   @Inject('categoryService') private categoryService: () => CategoryService;
 
+  public product: IProduct = new Product();
   public categories: ICategory[] = [];
   public isSaving = false;
   public url = null;
   public file = null;
   public status = Status;
+
+  public mounted(): void {
+    this.retrieveAllCategorys();
+  }
 
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -48,6 +51,7 @@ export default class ProductUpdate extends Vue {
       vm.initRelationships();
     });
   }
+
   onFileChange(e) {
     this.file = e.target.files[0];
     this.url = URL.createObjectURL(this.file);
@@ -55,9 +59,10 @@ export default class ProductUpdate extends Vue {
 
   public save(): void {
     this.isSaving = true;
+    const fileUpload: FormData = this.getFileUploadInformation();
     if (this.product.id) {
       this.productService()
-        .update(this.product)
+        .update(this.product, fileUpload)
         .then(param => {
           this.isSaving = false;
           this.$router.go(-1);
@@ -65,7 +70,6 @@ export default class ProductUpdate extends Vue {
           this.alertService().showAlert(message, 'info');
         });
     } else {
-      const fileUpload: FormData = this.getFileUploadInformation();
       this.productService()
         .create(this.product, fileUpload)
         .then(param => {
@@ -97,9 +101,24 @@ export default class ProductUpdate extends Vue {
         this.categories = res.data;
       });
   }
+
   public getFileUploadInformation() {
     const fileUpload = new FormData();
     fileUpload.append('files', this.file);
     return fileUpload;
+  }
+
+  public retrieveAllCategorys(): void {
+    const paginationQuery = {};
+    this.categoryService()
+      .retrieve(paginationQuery)
+      .then(
+        res => {
+          this.categories = res.data;
+        },
+        err => {
+          this.categories = [];
+        }
+      );
   }
 }

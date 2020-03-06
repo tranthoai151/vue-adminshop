@@ -62,7 +62,15 @@ public class CategoryServiceImpl implements CategoryService{
 
 	@Override
 	public Category updateCategory(Category category, MultipartFile file) {
-	    if(!file.isEmpty()){
+        Category categoryExist = categoryRepository.getOne(category.getId());
+
+        if(!file.isEmpty() && categoryExist.getFile().getName() != file.getOriginalFilename()){
+            fileService.delete(categoryExist.getFile().getId());
+            //create file
+            File f = new File();
+            f.setName(file.getOriginalFilename());
+            f.setStatus(StatusEnum.ACTIVE.getValue());
+            fileService.save(f);
 
         }
 		return category = categoryRepository.save(category);

@@ -40,9 +40,10 @@ export default class CategoryService {
     });
   }
 
-  public update(entity: ICategory): Promise<ICategory> {
+  public update(category: ICategory, data: FormData): Promise<ICategory> {
+    data.append('jsonCategory', JSON.stringify(category));
     return new Promise<ICategory>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, data).then(function(res) {
         resolve(res.data);
       });
     });

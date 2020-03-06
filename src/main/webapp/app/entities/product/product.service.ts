@@ -34,15 +34,16 @@ export default class ProductService {
   public create(product: IProduct, data: FormData): Promise<IProduct> {
     data.append('jsonProduct', JSON.stringify(product));
     return new Promise<IProduct>(resolve => {
-      axios.post(`${baseApiUrl}`, product).then(function(res) {
+      axios.post(`${baseApiUrl}`, data).then(function(res) {
         resolve(res.data);
       });
     });
   }
 
-  public update(entity: IProduct): Promise<IProduct> {
+  public update(product: IProduct, data: FormData): Promise<IProduct> {
+    data.append('jsonProduct', JSON.stringify(product));
     return new Promise<IProduct>(resolve => {
-      axios.put(`${baseApiUrl}`, entity).then(function(res) {
+      axios.put(`${baseApiUrl}`, data).then(function(res) {
         resolve(res.data);
       });
     });

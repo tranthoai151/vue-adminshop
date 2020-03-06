@@ -37,7 +37,7 @@
                             </router-link>
                         </b-button>
                         <b-button pill variant="primary">
-                            <router-link :to="{name: 'CategoryEdit', params: {categoryId: data.item.id}}" class="cus-router">
+                            <router-link :to="{name: 'ProductEdit', params: {categoryId: data.item.id}}" class="cus-router">
                                 <font-awesome-icon icon="pencil-alt"></font-awesome-icon>
                                 <span class="d-none d-md-inline">Cập nhật</span>
                             </router-link>
